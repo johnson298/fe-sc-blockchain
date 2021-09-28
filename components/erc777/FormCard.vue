@@ -196,24 +196,21 @@ export default {
 
     getTotalServiceFee(items) {
       this.hasMintable = false;
-      if (!items.length) {
-        this.form.serviceFee = this.currentTypeFee.serviceFee
-      }
+      this.form.serviceFee = this.currentTypeFee.serviceFee
       this.form.serviceType = SERVICE_TYPE_ERC.default
 
       _.forEach(items, value => {
         if (value == 'mintable') {
-          this.form.serviceFee = parseFloat(this.currentTypeFee.mintableFee).toFixed(2);
+          this.form.serviceFee = parseFloat(parseFloat(this.form.serviceFee) + this.currentTypeFee.mintableFee).toFixed(3);
           this.form.serviceType = SERVICE_TYPE_ERC.mintable
           this.hasMintable = true;
         }
         if (value == 'burnable') {
-          this.form.serviceFee = parseFloat(this.currentTypeFee.burnableFee).toFixed(3)
+          this.form.serviceFee = parseFloat(parseFloat(this.form.serviceFee) + this.currentTypeFee.burnableFee).toFixed(3)
           this.form.serviceType = SERVICE_TYPE_ERC.burnable
         }
       })
       if (items.length == 2) {
-        this.form.serviceFee = parseFloat(this.currentTypeFee.mintableFee + this.currentTypeFee.burnableFee).toFixed(3)
         this.form.serviceType = SERVICE_TYPE_ERC.mintableBurnable
       }
       this.$emit('onServiceFee', this.form.serviceFee)
