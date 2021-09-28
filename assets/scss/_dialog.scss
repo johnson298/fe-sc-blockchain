@@ -59,3 +59,13 @@
       padding: 0 15px;
   }
 }
+
+.modal-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .el-dialog {
+        margin-top: 0vh !important;
+    }
+}

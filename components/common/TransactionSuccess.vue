@@ -1,11 +1,12 @@
 <template>
   <el-dialog
+    class="modal-center"
     :close-on-click-modal="false"
     :visible="isShow"
+    top="0vh"
     width="370px"
     custom-class="modal-dark"
-    @close="handleCancel"
-    centered>
+    @close="handleCancel">
     <div class="text-center">
       <div class="mb-1">
         <h1 class="title-head">Transaction success</h1>
