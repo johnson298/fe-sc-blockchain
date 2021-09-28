@@ -1,5 +1,9 @@
 <template>
-  <el-dialog centered :visible="isShow" width="370px" custom-class="modal-light-blue" :close-on-click-modal="false" @close="handleClose">
+  <el-dialog centered 
+    class="modal-center"
+    :visible="isShow" width="370px" 
+    custom-class="modal-light-blue" 
+    :close-on-click-modal="false" @close="handleClose">
     <div  class="text-center">
       <div class="mb-1">
         <h1  class="title-head">Transaction error</h1>

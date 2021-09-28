@@ -1,6 +1,7 @@
 <template>
   <el-dialog
     centered
+    class="modal-center"
     :visible="isShow"
     width="370px"
     :before-close="handleClose"
