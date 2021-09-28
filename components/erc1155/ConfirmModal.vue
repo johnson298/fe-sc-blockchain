@@ -61,6 +61,10 @@
               <el-col :span="12">{{ formMetadata.name }}</el-col>
             </el-row>
             <el-row>
+              <el-col :span="12">Number of copies:</el-col>
+              <el-col :span="12">{{ formMetadata.numberOfCopies }}</el-col>
+            </el-row>
+            <el-row>
               <el-col :span="12">Description:</el-col>
               <el-col :span="12">{{ formMetadata.description }}</el-col>
             </el-row>
@@ -183,12 +187,6 @@ export default {
       'getReceiptStatus',
       'getErrorStatus',
       'getCurrentToken',
-      //child token
-      'getCurrentTokenChild',
-      'getConfirmStatusChild',
-      'getTransactionHashChild',
-      'getReceiptStatusChild',
-      'getErrorStatusChild',
     ]),
   },
 
@@ -257,13 +255,6 @@ export default {
       this.visible = val
     },
 
-    getReceiptStatusChild(val) {
-      if (val) {
-        this.isShownLoading = false;
-        this.isShownSuccess = true;
-      }
-    },
-
     async getReceiptStatus(val) {
       if (val) {
         if (val.status) {
@@ -276,13 +267,6 @@ export default {
     },
 
     getErrorStatus(val) {
-      if (val) {
-        this.isShownLoading = false
-        this.isShownError = true
-      }
-    },
-
-    getErrorStatusChild(val) {
       if (val) {
         this.isShownLoading = false
         this.isShownError = true

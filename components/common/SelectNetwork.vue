@@ -1,7 +1,10 @@
 <template>
     <el-select v-model="network" placeholder="" id="selectNetwork">
-        <el-option label="SelectedNetwork" :value="0"></el-option>
-        <el-option v-for="(item, index) in NETWORKS" :key="index" :label="item.name" :value="item.value"></el-option>
+        <el-option 
+            v-for="(item, index) in NETWORKS" :key="index" 
+            :label="item.name" :value="item.value"
+            :disabled="item.isDisabled"
+        ></el-option>
     </el-select>
 </template>
 

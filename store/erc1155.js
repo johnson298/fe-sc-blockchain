@@ -4,14 +4,7 @@ import _ from 'lodash';
 const state = () => ({
   currentToken: '',
   transactionHash: '',
-  currentChildToken: '',
   createTokenState: {
-    confirm: null,
-    transactionHash: '',
-    receipt: null,
-    error: null
-  },
-  createTokenChildState: {
     confirm: null,
     transactionHash: '',
     receipt: null,
@@ -29,16 +22,8 @@ const getters = {
   getReceiptStatus: state => state.createTokenState.receipt,
   getErrorStatus: state => state.createTokenState.error,
 
-  getFormData: state => state.formData,
   getCurrentFactory: (state, getters, rootState) => rootState.chain.currentFactory,
   getCurrentWallet: (state, getters, rootState) => rootState.chain.wallet,
-
-  //Token Child
-  getCurrentTokenChild: state => state.currentChildToken,
-  getConfirmStatusChild: state => state.createTokenChildState.confirm,
-  getTransactionHashChild: state => state.createTokenChildState.transactionHash,
-  getReceiptStatusChild: state => state.createTokenChildState.receipt,
-  getErrorStatusChild: state => state.createTokenChildState.error,
 }
 
 
@@ -63,7 +48,7 @@ const mutations = {
             if (type == 0) {
               state.currentToken = receipt.events.ChildCreatedERC1155Mint.returnValues.childAddress
             } else {
-              state.currentToken = receipt.events.ChildCreatedERC1155Mint.returnValues.childAddress
+              state.currentToken = receipt.events.ChildCreatedERC1155Burn.returnValues.childAddress
             } 
 
           state.createTokenState.receipt = receipt;

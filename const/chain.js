@@ -6,27 +6,31 @@ export const NETWORKS = [
     name: 'Creator Chain',
     chainId: [],
     symbol: 'CTR',
-    fee: Fee.CTR_FEE
+    fee: Fee.CTR_FEE,
+    isDisabled: true
   },
   {
     value: 2,
     name: 'Ethereum',
     chainId: ['0x1', '0x4'],
     symbol: 'ETH',
-    fee: Fee.ETH_FEE
+    fee: Fee.ETH_FEE,
+    isDisabled: false
   },
   {
     value: 3,
     name: 'Kardia Chain',
     chainId: [],
-    fee: {}
+    fee: {},
+    isDisabled: true
   },
   {
     value: 4,
     name: 'Binance SmartChain',
     chainId: ['0x61'],
     symbol: 'BNB',
-    fee: Fee.BSC_FEE
+    fee: Fee.BSC_FEE,
+    isDisabled: false
   },
 ]
 
