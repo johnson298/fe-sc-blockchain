@@ -225,20 +225,27 @@ export default {
       this.stepFormNumber = STEP_FORM.metadata;
     },
 
-    onSubmit() {
+    async onSubmit() {
       if(!this.isValidNetwork(this.getCurrentNetwork)) return
 
       this.$emit('onClose')
       this.isShownLoading = true
       this.stepFormNumber = STEP_FORM.token;
 
-      const {type, name, symbol, serviceFee, description} = this.formData;
+      const metadataHash = await uploadMetaDataToIpfs(this.formMetadata)
+      const metadataUrl = `https://ipfs.io/ipfs/${metadataHash._baseCache.get("z")}/metadata.json`;
+
+      const amount = this.formMetadata.numberOfCopies
+
+      const {type, name, symbol, serviceFee, description } = this.formData;
       this.createToken({
         type: type ? 1 : 0,
         name,
         symbol,
         serviceFee,
-        description
+        description,
+        amount,
+        metadataUrl
       });
 
     },
@@ -260,17 +267,8 @@ export default {
     async getReceiptStatus(val) {
       if (val) {
         if (val.status) {
-          const metadataHash = await uploadMetaDataToIpfs(this.formMetadata)
-          const metadataUrl = `https://ipfs.io/ipfs/${metadataHash._baseCache.get("z")}/metadata.json`;
-          const paramChild = {
-            type: this.formData.type,
-            numberOfCopies: Number(this.formMetadata.numberOfCopies),
-            metadataUrl
-          };
-          this.updateTokenChild(paramChild);
-
-          // generate logo
-          this.logoLink = await generateImageByIpfs(this.formMetadata.bufferMedia);
+          this.isShownLoading = false;
+          this.isShownSuccess = true;
         } else {
           this.isShownError = true
         }

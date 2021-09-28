@@ -51,8 +51,8 @@ const mutations = {
       const web3 = await new Web3(window.ethereum);
 
       const contract = new web3.eth.Contract(getters.getCurrentFactory.contractAbi, getters.getCurrentFactory.contractAddress)
-      const { type, name, symbol, serviceFee, description } = params;
-      await contract.methods.createChildERC1155(type, name, symbol, description)
+      const { type, name, symbol, serviceFee, description, amount, metadataUrl } = params;
+      await contract.methods.createChildERC1155(type, name, symbol, description, amount, metadataUrl)
         .send({ from: getters.getCurrentWallet.account, value: (serviceFee*1000000000000000000) })
         .on('transactionHash', function(transactionHash){
           state.transactionHash = transactionHash;
@@ -60,15 +60,11 @@ const mutations = {
         })
         .on('receipt', function(receipt) {
           console.log('state receipt', receipt);
-          if(receipt.events.ChildCreatedERC1155Mint.returnValues.childAddress){
             if (type == 0) {
               state.currentToken = receipt.events.ChildCreatedERC1155Mint.returnValues.childAddress
             } else {
               state.currentToken = receipt.events.ChildCreatedERC1155Mint.returnValues.childAddress
-            }
-          } else {
-            throw "Error"
-          }
+            } 
 
           state.createTokenState.receipt = receipt;
         })
@@ -87,40 +83,6 @@ const mutations = {
     }
   },
 
-  // Update MetaData to Child ERC1155
-  async UPDATE_TOKEN_CHILD(state, { params, getters }) {
-
-    const web3 = await new Web3(window.ethereum);
-
-    const { type, numberOfCopies, metadataUrl } = params;
-    let abi = null
-
-    if (!type) {
-      abi = require('@/assets/abi/erc1155/mint.json')
-    } else {
-      abi = require('@/assets/abi/erc1155/burn.json')
-    }
-    const contract = await new web3.eth.Contract(abi, state.currentToken)
-
-    await contract.methods.mintToken(getters.getCurrentWallet.account, numberOfCopies, metadataUrl)
-      .send({ from: getters.getCurrentWallet.account })
-
-      .on('transactionHash', function(transactionHash){
-        state.createTokenChildState.transactionHash = transactionHash;
-      })
-      .on('receipt', function(receipt) {
-        console.log('receipt', receipt);
-        // state.currentChildToken = receipt.events.ChildCreatedERC721Mint.address
-        state.createTokenChildState.receipt = receipt;
-      })
-      .on('error', function(error, receipt) {
-        console.log('error')
-        state.createTokenChildState.error = {
-          error
-        };
-      });
-  },
-
   RESET_STATUS_CREATE_TOKEN (state) {
     state.createTokenState = {
       confirm: null,
@@ -135,10 +97,6 @@ const mutations = {
 
 // actions
 const actions = {
-  updateTokenChild({ commit, getters }, params) {
-    commit('UPDATE_TOKEN_CHILD', {params, getters})
-  },
-
   createToken({ commit, getters, rootState }, params) {
     commit('CREATE_TOKEN', {params, getters, rootState})
   },
