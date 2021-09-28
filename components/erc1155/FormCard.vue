@@ -132,7 +132,6 @@
           </template>
           <el-input-number v-valid-regex="/^[0-9.]*$/"
             v-model="formMetadata.numberOfCopies" placeholder="E. g.10"
-            name="name"
             controls-position="right" />
         </el-form-item>
 

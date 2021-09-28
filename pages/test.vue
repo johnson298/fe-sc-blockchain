@@ -94,20 +94,6 @@ export default {
         connectContract() {
 
             const web3 = new Web3(window.ethereum);
-
-            let contract = new web3.eth.Contract(require('@/assets/abi/erc721/mint.json'), '0x129920B8a65dBEdA8b830a4763BbA51Cf9f85305')
-
-            contract.methods.mintToken('0x5BD5536A9101036338fc1DE96633143c15430346', 'https://ipfs...')
-                .send({ from: '0x5BD5536A9101036338fc1DE96633143c15430346' })
-
-                .on('transactionHash', function(transactionHash){
-                })
-                .on('receipt', function(receipt) {
-                    console.log('receipt', receipt);
-                })
-                .on('error', function(error, receipt) {
-                    console.log('errorrrr')
-                });
         },
 
     },

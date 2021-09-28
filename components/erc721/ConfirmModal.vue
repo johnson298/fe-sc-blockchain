@@ -183,19 +183,12 @@ export default {
       'getReceiptStatus',
       'getErrorStatus',
       'getCurrentToken',
-      //child token
-      'getCurrentTokenChild',
-      'getConfirmStatusChild',
-      'getTransactionHashChild',
-      'getReceiptStatusChild',
-      'getErrorStatusChild',
     ]),
   },
 
   methods: {
     ...mapActions({
-      createToken: 'erc721/createToken',
-      updateTokenChild: 'erc721/updateTokenChild'
+      createToken: 'erc721/createToken'
     }),
 
     handleClose() {
@@ -225,12 +218,15 @@ export default {
       this.stepFormNumber = STEP_FORM.metadata;
     },
 
-    onSubmit() {
+    async onSubmit() {
       if(!this.isValidNetwork(this.getCurrentNetwork)) return
 
       this.$emit('onClose')
       this.isShownLoading = true
       this.stepFormNumber = STEP_FORM.token;
+
+      const metadataHash = await uploadMetaDataToIpfs(this.formMetadata)
+      const metadataUrl = `https://ipfs.io/ipfs/${metadataHash._baseCache.get("z")}/metadata.json`
 
       const {type, name, symbol, serviceFee, description} = this.formData;
       this.createToken({
@@ -238,7 +234,8 @@ export default {
         name,
         symbol,
         serviceFee,
-        description
+        description,
+        metadataUrl
       });
 
     },
@@ -250,25 +247,10 @@ export default {
       this.visible = val
     },
 
-    getReceiptStatusChild(val) {
+    async getReceiptStatus(val) {
       if (val) {
         this.isShownLoading = false;
         this.isShownSuccess = true;
-      }
-    },
-
-    async getReceiptStatus(val) {
-      if (val) {
-        if (val.status) {
-          const metadataHash = await uploadMetaDataToIpfs(this.formMetadata)
-          const metadataUrl = `https://ipfs.io/ipfs/${metadataHash._baseCache.get("z")}/metadata.json`
-          this.updateTokenChild({type: this.formData.type, metadataUrl});
-
-          // generate logo
-          this.logoLink = await generateImageByIpfs(this.formMetadata.bufferMedia);
-        } else {
-          this.isShownError = true
-        }
       }
     },
 
@@ -278,13 +260,6 @@ export default {
         this.isShownError = true
       }
     },
-
-    getErrorStatusChild(val) {
-      if (val) {
-        this.isShownLoading = false
-        this.isShownError = true
-      }
-    }
   }
 }
 </script>

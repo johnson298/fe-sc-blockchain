@@ -50,23 +50,16 @@ export const CONTRACT_FACTORY_777 = {
 }
 
 export const CONTRACT_FACTORY_721 = {
-  ropsten: {
-    chainId: '0x3',
-    contractAddress: '0x6832D40588c83FB8fC5fc017F3cFFfFBDF278b6A',
-    contractAbi: require("@/assets/abi/erc721/factory.json"),
-    contractUrl: 'https://ropsten.etherscan.io/address/',
-    transactionUrl: 'https://ropsten.etherscan.io/tx/',
-  },
   rinkeby: {
     chainId: '0x4',
-    contractAddress: '0x54a3fDeaA65B5aEcE6fE29784F562a37A9DeEc75',
+    contractAddress: '0x0eAF978899d7CB8ff3E5dd8aB72a32bDC0606e2f',
     contractAbi: require("@/assets/abi/erc721/factory.json"),
     contractUrl: 'https://rinkeby.etherscan.io/address/',
     transactionUrl: 'https://rinkeby.etherscan.io/tx/',
   },
   binance: {
     chainId: '0x61',
-    contractAddress: '0x35E6EafaEFbdb70b9c1a51c8Cd143D0B5BbF628A',
+    contractAddress: '0xB3A2511232D1C531Dca22aa6761bD875dfD5BEfE',
     contractAbi: require("@/assets/abi/erc721/factory.json"),
     contractUrl: 'https://testnet.bscscan.com/address/',
     transactionUrl: 'https://testnet.bscscan.com/tx/',
