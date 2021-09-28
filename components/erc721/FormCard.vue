@@ -360,7 +360,7 @@ export default {
     getTotalServiceFee(val) {
       this.formData.serviceFee = this.currentTypeFee.serviceFee
       if (val) {
-        this.formData.serviceFee = this.currentTypeFee.burnableFee
+        this.formData.serviceFee += this.currentTypeFee.burnableFee
       }
       this.$emit('getServiceFee', this.formData.serviceFee)
     },
