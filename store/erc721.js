@@ -4,14 +4,7 @@ import _ from 'lodash';
 const state = () => ({
   currentToken: '',
   transactionHash: '',
-  currentChildToken: '',
   createTokenState: {
-    confirm: null,
-    transactionHash: '',
-    receipt: null,
-    error: null
-  },
-  createTokenChildState: {
     confirm: null,
     transactionHash: '',
     receipt: null,
@@ -29,16 +22,8 @@ const getters = {
   getReceiptStatus: state => state.createTokenState.receipt,
   getErrorStatus: state => state.createTokenState.error,
 
-  getFormData: state => state.formData,
   getCurrentFactory: (state, getters, rootState) => rootState.chain.currentFactory,
   getCurrentWallet: (state, getters, rootState) => rootState.chain.wallet,
-
-  //Token Child
-  getCurrentTokenChild: state => state.currentChildToken,
-  getConfirmStatusChild: state => state.createTokenChildState.confirm,
-  getTransactionHashChild: state => state.createTokenChildState.transactionHash,
-  getReceiptStatusChild: state => state.createTokenChildState.receipt,
-  getErrorStatusChild: state => state.createTokenChildState.error,
 }
 
 
@@ -51,9 +36,9 @@ const mutations = {
       const web3 = await new Web3(window.ethereum);
 
       const contract = new web3.eth.Contract(getters.getCurrentFactory.contractAbi, getters.getCurrentFactory.contractAddress)
-      const { type, name, symbol, serviceFee, description } = params;
+      const { type, name, symbol, serviceFee, description, metadataUrl } = params;
 
-      await contract.methods.createChildERC721(type, name, symbol, description)
+      await contract.methods.createChildERC721(type, name, symbol, description, metadataUrl)
         .send({ from: getters.getCurrentWallet.account, gasLimit: 40000, gas: 3000000, value: (serviceFee*1000000000000000000) })
         .on('transactionHash', function(transactionHash){
           state.transactionHash = transactionHash;
@@ -82,40 +67,6 @@ const mutations = {
     }
   },
 
-  // Update MetaData to Child ERC721
-  async UPDATE_TOKEN_CHILD(state, { params, getters }) {
-
-    const web3 = await new Web3(window.ethereum);
-
-    const { type, metadataUrl } = params;
-    let abi = null
-
-    if (!type) {
-      abi = require('@/assets/abi/erc721/mint.json')
-    } else {
-      abi = require('@/assets/abi/erc721/burn.json')
-    }
-    const contract = await new web3.eth.Contract(abi, state.currentToken)
-
-    await contract.methods.mintToken(getters.getCurrentWallet.account, metadataUrl)
-      .send({ from: getters.getCurrentWallet.account })
-
-      .on('transactionHash', function(transactionHash){
-        state.createTokenChildState.transactionHash = transactionHash;
-      })
-      .on('receipt', function(receipt) {
-        console.log('receipt', receipt);
-        // state.currentChildToken = receipt.events.ChildCreatedERC721Mint.address
-        state.createTokenChildState.receipt = receipt;
-      })
-      .on('error', function(error, receipt) {
-        console.log('error')
-        state.createTokenChildState.error = {
-          error
-        };
-      });
-  },
-
   RESET_STATUS_CREATE_TOKEN (state) {
     state.createTokenState = {
       confirm: null,
@@ -130,10 +81,6 @@ const mutations = {
 
 // actions
 const actions = {
-  updateTokenChild({ commit, getters }, params) {
-    commit('UPDATE_TOKEN_CHILD', {params, getters})
-  },
-
   createToken({ commit, getters, rootState }, params) {
     commit('CREATE_TOKEN', {params, getters, rootState})
   },

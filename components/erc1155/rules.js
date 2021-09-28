@@ -42,6 +42,11 @@ export default {
       message: 'The name of the token. Max length is 25 symbols. Alphanumerical characters, space, and hyphen are accepted.',
       trigger: 'blur'
     }],
+    numberOfCopies: [{
+      required: true,
+      message: '"Number of copies" must be a number.',
+      trigger: 'blur'
+    }],
     description: [{
       required: false,
       max: 255,

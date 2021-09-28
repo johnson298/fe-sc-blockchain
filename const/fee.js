@@ -38,8 +38,8 @@ export const BSC_FEE = {
     burnableFee: 0.035,
   },
   erc721: {
-    serviceFee: 0.014,
-    burnableFee: 0.014
+    serviceFee: 0.024,
+    burnableFee: 0.024
   },
   erc1155: {
     serviceFee: 0.014,

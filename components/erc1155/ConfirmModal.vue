@@ -192,8 +192,7 @@ export default {
 
   methods: {
     ...mapActions({
-      createToken: 'erc1155/createToken',
-      updateTokenChild: 'erc1155/updateTokenChild'
+      createToken: 'erc1155/createToken'
     }),
 
     handleClose() {
