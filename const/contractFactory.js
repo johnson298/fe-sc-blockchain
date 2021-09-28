@@ -83,7 +83,7 @@ export const CONTRACT_FACTORY_1155 = {
   },
   binance: {
     chainId: '0x61',
-    contractAddress: '0xD82A2c20eFa52F76BBd16FB9a2BE652Ff1a15Ff6',
+    contractAddress: '0x0e53cC6bb5DEc5b1ED45f4D87a874EdCb0A77487',
     contractAbi: require("@/assets/abi/erc1155/factory.json"),
     contractUrl: 'https://testnet.bscscan.com/address/',
     transactionUrl: 'https://testnet.bscscan.com/tx/',

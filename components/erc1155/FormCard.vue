@@ -130,7 +130,7 @@
               content="Used to define the NFT’s number of copies"
             ></label-tooltip>
           </template>
-          <el-input-number v-valid-regex="/^[0-9]*$/"
+          <el-input-number v-valid-regex="/^[0-9.]*$/"
             v-model="formMetadata.numberOfCopies" placeholder="E. g.10"
             name="name"
             controls-position="right" />
@@ -344,8 +344,6 @@ export default {
       'getReceiptStatus',
       'getErrorStatus',
       'getCurrentFactory',
-      //child
-      'getTransactionHashChild'
     ]),
 
     ...mapGetters('chain', [
