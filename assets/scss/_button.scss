@@ -1,0 +1,54 @@
+.el-button {
+    font-weight: 400;
+    box-shadow: none;
+    border: none;
+    &:active,
+    &:focus,
+    &:hover {
+        outline: none;
+        border: none;
+    }
+
+    &.el-button--primary {
+        color: #fff;
+        background: $violet;
+        border-color: $violet;
+        &:hover {
+            background: lighten($color: $violet, $amount: 10);
+        }
+    }
+
+    &.el-button--info {
+        color: #fff;
+        background: #4AA7FA;
+        border-color: #4AA7FA;
+        &:hover {
+            background: lighten($color: #4AA7FA, $amount: 10);
+        }
+    }
+
+    &.el-button--success {
+        color: #fff !important;
+        background: $violet-bold;
+        border-color: $violet-bold;
+        &:hover {
+            background: lighten($color: $violet-bold, $amount: 10);
+        }
+    }
+
+    &.is-round {
+        border: 2px solid#F2A8FF;
+        // color: $--color-purple;
+        border-radius: 30px;
+    }
+
+    &.el-button--medium {
+        font-size: 16px;
+        border-radius: 10px;
+        padding: 12px 30px !important;
+    }
+
+    &.el-button--mini {
+        padding: 7px 25px;
+    }
+}

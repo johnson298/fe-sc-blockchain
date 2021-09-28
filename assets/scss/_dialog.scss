@@ -1,0 +1,61 @@
+.el-dialog {
+    border-radius: 20px;
+
+    .back-step {
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        left: 12px;
+    }
+
+    .el-dialog__header {
+        padding: 5px 20px 5px;
+    }
+
+    .el-dialog__body {
+        word-break: normal;
+    }
+
+    &.modal-dark {
+        background-color: $blue-light;
+
+        * {
+            color: $white;
+        }
+    }
+
+    &.modal-light-blue {
+        background-color: $blue-light;
+
+        * {
+            color: $white;
+        }
+    }
+
+    &.confirm-modal {
+        .el-dialog__body {
+            padding: 30px;
+        }
+    }
+
+    .el-dialog__footer {
+        text-align: center;
+    }
+}
+
+.confirm-modal {
+  width: 540px !important;
+  height: 790px;
+  max-height: 90vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 !important;
+
+  .modal-content {
+      max-height: 52vh !important;
+      overflow: auto;
+      padding: 0 15px;
+  }
+}

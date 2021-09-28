@@ -1,0 +1,51 @@
+[{
+  "inputs": [{
+    "internalType": "enum FactoryERC777.Types",
+    "name": "types",
+    "type": "uint8"
+  }, {
+    "internalType": "string",
+    "name": "name",
+    "type": "string"
+  }, {
+    "internalType": "string",
+    "name": "symbol",
+    "type": "string"
+  }, {
+    "internalType": "uint8",
+    "name": "decimal",
+    "type": "uint8"
+  }, {
+    "internalType": "uint256",
+    "name": "initialSupply",
+    "type": "uint256"
+  }, {
+    "internalType": "uint256",
+    "name": "cap",
+    "type": "uint256"
+  }],
+  "name": "createERC777Types",
+  "outputs": [],
+  "stateMutability": "payable",
+  "type": "function"
+}, {
+  "inputs": [],
+  "name": "getLatestChildrenErc777",
+  "outputs": [{
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  }],
+  "stateMutability": "view",
+  "type": "function"
+}, {
+  "inputs": [],
+  "name": "getLatestChildrenErc777Mintable",
+  "outputs": [{
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  }],
+  "stateMutability": "view",
+  "type": "function"
+}]

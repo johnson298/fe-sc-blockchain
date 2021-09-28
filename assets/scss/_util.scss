@@ -1,0 +1,162 @@
+// Flex
+.d-flex {
+    display: flex !important;
+}
+
+.flex-row {
+    flex-direction: row !important;
+}
+
+.flex-collumn {
+    flex-direction: column I !important;
+}
+
+.items-center {
+    align-items: center !important;
+}
+
+.justify-center {
+    justify-content: center !important;
+}
+
+// Width, Height
+.w-11 {
+    width: 11rem !important;
+}
+
+.w-30 {
+    width: 30% !important;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+// Block
+.d-none {
+    display: none !important;
+}
+
+// Spacing
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mt-1 {
+    margin-top: 1rem !important;
+}
+
+.mt-2 {
+    margin-top: 2rem !important;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mb-1 {
+    margin-bottom: 1rem !important;
+}
+.my-1{
+  margin-bottom: 1rem !important;
+  margin-top: 1rem !important;
+}
+
+.mb-2 {
+    margin-bottom: 2rem !important;
+}
+
+.ml-0 {
+    margin-left: 0 !important;
+}
+
+.ml-1 {
+    margin-left: .5rem !important;
+}
+.px-0{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.pl-0{
+  padding-left: 0 !important;
+}
+.pr-0{
+  padding-right: 0 !important;
+}
+
+
+// Border radius
+.radius-10 {
+    border-radius: 10px !important;
+}
+
+.radius-30 {
+    border-radius: 30px !important;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+// Text
+.fw-normal {
+    font-weight: normal !important;
+}
+
+.fw-400 {
+    font-weight: 400 !important;
+}
+
+.fw-600 {
+    font-weight: 600 !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-16 {
+    font-size: 16px;
+}
+
+.text-white {
+    color: #FFFFFF !important;
+}
+
+.text-danger {
+    color: #f85151 !important;
+}
+
+.text-gray {
+    color: #C2C2C2 !important;
+}
+
+.text-link {
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+.text-small {
+    font-size: 10px !important;
+}
+
+.text-overflow {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lh-24 {
+    line-height: 24px;
+}
+
+// Color
+.bg-transparent {
+    background: transparent !important;
+}

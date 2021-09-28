@@ -1,0 +1,24 @@
+$base-color: #1E152F;
+$violet: #A11EDD;
+$dark: #0E071B;
+$white: #fff;
+$violet-dark: #3A1A53;
+$violet-light: #A535E5;
+$grey: #918D99;
+$blue-light: #24416C;
+$violet-bold: #A11EDD;
+$blue-sky: #4AA7FA;
+
+@font-face {
+  font-family: 'poppins';
+  src: url('../fonts/Poppins/Poppins-Light.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'poppins';
+  src: url('../fonts/Poppins/Poppins-Bold.ttf');
+  font-weight: bold;
+}
+
+$font-base: 'poppins';

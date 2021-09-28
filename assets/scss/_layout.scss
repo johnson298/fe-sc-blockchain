@@ -1,0 +1,99 @@
+body{
+  background-color: $dark;
+  color: $white;
+  *{
+    font-family: $font-base;
+  }
+  #layout {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+    /*sidebar left*/
+    .sidebar-left {
+      height: 100%;
+      background-color: $base-color;
+      position: relative;
+      * {
+        font-size: 12px;
+      }
+      .logo {
+        width: 100% !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #4D4362;
+        padding: 18px 0;
+        img{
+          height: auto !important;
+          width: 135px;
+        }
+      }
+      .el-menu{
+        background-color: transparent;
+        border: none;
+        .el-submenu__title {
+          height: 45px;
+          line-height: 45px;
+        }
+        .p-menu > ul {
+          margin-left: 20px;
+        }
+        .el-menu-item {
+          color: $white;
+          height: 39px;
+          line-height: 39px;
+
+          a {
+            color: $white;
+            text-decoration: none;
+            width: 100%;
+            display: inline-block;
+            line-height: 40px;
+          }
+        }
+        .v-submenu{
+          .el-menu-item {
+            a {
+              text-align: center;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+
+          &.is-active {
+            background: $violet-dark;
+          }
+        }
+        .el-submenu {
+          &__title{
+            color: $white;
+          }
+        }
+      }
+      .copy-right{
+        position: absolute;
+        bottom: 55px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: #4d4d4d;
+        font-size: 12px;
+      }
+    }
+
+
+    /*content right*/
+    #main-content {
+      flex-direction: column;
+      .header-app{
+        height: 80px !important;
+        // display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 20px 30px;
+      }
+    }
+  }
+}

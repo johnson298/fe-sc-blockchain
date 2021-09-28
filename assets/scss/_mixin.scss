@@ -1,0 +1,8 @@
+@mixin center-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.center-box{
+  @include center-box;
+}
