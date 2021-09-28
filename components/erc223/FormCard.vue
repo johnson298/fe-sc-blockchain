@@ -91,11 +91,16 @@
       </el-form-item>
 
       <el-form-item size="large" class="text-center mt-2">
-        <el-button v-if="!isValidNetwork(getCurrentNetwork, false)" 
-          type="primary" class="radius-10 fw-600"
-          @click="scrollToNetwork">Wrong Network</el-button>
-        <el-button v-else-if="isConnection" type="primary" class="radius-10 fw-600" @click="onSubmit">Submit</el-button>
-        <el-button v-else type="primary" class="radius-10 fw-600" @click="connectWallet">Connect to a wallet</el-button>
+        <template v-if="isConnection">
+          <el-button v-if="!isValidNetwork(getCurrentNetwork, false)" 
+            type="primary" class="radius-10 fw-600"
+            @click="scrollToNetwork">Wrong Network</el-button>
+          <el-button v-else-if="isConnection" type="primary" class="radius-10 fw-600" @click="onSubmit">Submit</el-button>
+        </template>
+        
+        <template v-else>
+          <el-button type="primary" class="radius-10 fw-600" @click="connectWallet">Connect to a wallet</el-button>
+        </template>
       </el-form-item>
     </el-form>
 

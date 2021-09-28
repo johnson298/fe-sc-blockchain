@@ -73,20 +73,22 @@
         </el-form-item>
 
         <el-form-item size="large" class="text-center mt-2">
-          <el-button v-if="!isValidNetwork(getCurrentNetwork, false)" 
-            type="primary" class="radius-10 fw-600"
-            @click="scrollToNetwork">
-            Wrong Network</el-button>
-          <el-button
-            type="success"
-            class="radius-10 fw-600 w-11"
-            @click="nextToMetadataStep"
-            v-else-if="isConnection">Next Step</el-button>
-          <el-button
-            type="success"
-            class="radius-10 fw-600"
-            v-else
-            @click="connectWallet">Connect to a wallet</el-button>
+          <template v-if="isConnection">
+            <el-button v-if="!isValidNetwork(getCurrentNetwork, false)" 
+              type="primary" class="radius-10 fw-600"
+              @click="scrollToNetwork">
+              Wrong Network</el-button>
+            <el-button
+              type="success"
+              class="radius-10 fw-600 w-11"
+              @click="nextToMetadataStep"
+              v-else-if="isConnection">
+              Next Step</el-button>
+          </template>
+          
+          <template v-else>
+            <el-button type="success" class="radius-10 fw-600" @click="connectWallet">Connect to a wallet</el-button>
+          </template>
         </el-form-item>
       </el-form>
     </div>
