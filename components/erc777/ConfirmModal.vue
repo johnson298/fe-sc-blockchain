@@ -47,21 +47,6 @@
               <el-col :span="12"><span style="font-weight: 600">Service fee:</span></el-col>
               <el-col :span="12">{{ formData.serviceFee }} {{getSymbolCoin}}</el-col>
             </el-row>
-            <p></p>
-            <el-row v-show="formData.serviceType == 1">
-              <el-col :span="12">Standard:</el-col>
-              <el-col :span="12">{{ this.currentTypeFee.serviceFee }} {{getSymbolCoin}}</el-col>
-            </el-row>
-            <el-row v-show="formData.serviceType == SERVICE_TYPE_ERC.mintable ||
-                  formData.serviceType == SERVICE_TYPE_ERC.mintableBurnable">
-              <el-col :span="12">Mintable:</el-col>
-              <el-col :span="12">{{ this.currentTypeFee.mintableFee }} {{getSymbolCoin}}</el-col>
-            </el-row>
-            <el-row v-show="formData.serviceType == SERVICE_TYPE_ERC.burnable ||
-                  formData.serviceType == SERVICE_TYPE_ERC.mintableBurnable">
-              <el-col :span="12">Burnable:</el-col>
-              <el-col :span="12">{{ this.currentTypeFee.burnableFee }} {{getSymbolCoin}}</el-col>
-            </el-row>
             <p>&nbsp;</p>
           </div>
           <div class="card">
