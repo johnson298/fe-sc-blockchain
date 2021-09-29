@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        :visible.sync="isVisible"
+        :visible.sync="visible"
         center
         width="30%"
         custom-class="modal-light-blue"
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
     data() {
@@ -27,7 +27,14 @@ export default {
     computed: {
         ...mapState({
             isVisible: state => state.chain.isShowNetworkFail
-        })
+        }),
+        ...mapGetters('chain', [
+            'isConnection'
+        ]),
+
+        visible() {
+            return this.isVisible && this.isConnection
+        }
     },
 
     methods: {

@@ -73,20 +73,22 @@
         </el-form-item>
 
         <el-form-item size="large" class="text-center mt-2">
-          <el-button v-if="!isValidNetwork(getCurrentNetwork, false)"
-            type="primary" class="radius-10 fw-600"
-            @click="scrollToNetwork">
-            Wrong Network</el-button>
-          <el-button
-            type="success"
-            class="radius-10 fw-600 w-11"
-            @click="nextToMetadataStep"
-            v-else-if="isConnection">Next Step</el-button>
-          <el-button
-            type="success"
-            class="radius-10 fw-600"
-            v-else
-            @click="connectWallet">Connect to a wallet</el-button>
+          <template v-if="isConnection">
+            <el-button v-if="!isValidNetwork(getCurrentNetwork, false)"
+              type="primary" class="radius-10 fw-600"
+              @click="scrollToNetwork">
+              Wrong Network</el-button>
+            <el-button
+              type="success"
+              class="radius-10 fw-600 w-11"
+              @click="nextToMetadataStep"
+              v-else-if="isConnection">
+              Next Step</el-button>
+          </template>
+
+          <template v-else>
+            <el-button type="success" class="radius-10 fw-600" @click="connectWallet">Connect to a wallet</el-button>
+          </template>
         </el-form-item>
       </el-form>
     </div>
@@ -276,7 +278,7 @@ import AddModal from "../common/AddModal";
 import { TIME_RESET_TOKEN } from '@/const/common';
 
 import rules from "./rules";
-import ErcRules from '@/mixins/ercRules'
+import ErcRules from '@/mixins/ercRules721'
 
 const STEP_FORM = {
   token: 1,
@@ -369,7 +371,7 @@ export default {
     getTotalServiceFee(val) {
       this.formData.serviceFee = this.currentTypeFee.serviceFee
       if (val) {
-        this.formData.serviceFee = this.currentTypeFee.burnableFee
+        this.formData.serviceFee += this.currentTypeFee.burnableFee
       }
       this.$emit('getServiceFee', this.formData.serviceFee)
     },

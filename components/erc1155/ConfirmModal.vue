@@ -75,15 +75,6 @@
               <el-col :span="12"><span class="fw-600">Service fee:</span></el-col>
               <el-col :span="12"><span class="fw-600">{{ formData.serviceFee }} {{getSymbolCoin}}</span></el-col>
             </el-row>
-            <p></p>
-            <el-row v-if="!formData.type">
-              <el-col :span="12">Standard:</el-col>
-              <el-col :span="12">{{ this.currentTypeFee.serviceFee }} {{getSymbolCoin}}</el-col>
-            </el-row>
-            <el-row v-else>
-              <el-col :span="12">Burnable::</el-col>
-              <el-col :span="12">{{ this.currentTypeFee.burnableFee }} {{getSymbolCoin}}</el-col>
-            </el-row>
             <p>&nbsp;</p>
           </div>
           <div class="card" style="margin-top: 30px;">

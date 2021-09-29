@@ -73,20 +73,22 @@
         </el-form-item>
 
         <el-form-item size="large" class="text-center mt-2">
-          <el-button v-if="!isValidNetwork(getCurrentNetwork, false)"
-            type="primary" class="radius-10 fw-600"
-            @click="scrollToNetwork">
-            Wrong Network</el-button>
-          <el-button
-            type="success"
-            class="radius-10 fw-600 w-11"
-            @click="nextToMetadataStep"
-            v-else-if="isConnection">Next Step</el-button>
-          <el-button
-            type="success"
-            class="radius-10 fw-600"
-            v-else
-            @click="connectWallet">Connect to a wallet</el-button>
+          <template v-if="isConnection">
+            <el-button v-if="!isValidNetwork(getCurrentNetwork, false)"
+                       type="primary" class="radius-10 fw-600"
+                       @click="scrollToNetwork">
+              Wrong Network</el-button>
+            <el-button
+              type="success"
+              class="radius-10 fw-600 w-11"
+              @click="nextToMetadataStep"
+              v-else-if="isConnection">
+              Next Step</el-button>
+          </template>
+
+          <template v-else>
+            <el-button type="success" class="radius-10 fw-600" @click="connectWallet">Connect to a wallet</el-button>
+          </template>
         </el-form-item>
       </el-form>
     </div>
@@ -95,7 +97,7 @@
       <el-form
         ref="formMetadata"
         :validate-on-rule-change="false"
-        :rules="rulesMetadata"
+        :rules="rules"
         :model="formMetadata"
         label-width="120px"
         label-position="top">
@@ -270,12 +272,14 @@ const STEP_FORM = {
   token: 1,
   metadata: 2
 }
+import ErcRules from '@/mixins/ercRules721'
 export default {
   components: { ConfirmModal, AddModal },
 
   props: {
     currentTypeFee: Object
   },
+  mixins: [ErcRules],
 
   data() {
     return {
@@ -312,8 +316,6 @@ export default {
           stats: []
         }
       },
-      rules: rules.formToken,
-      rulesMetadata: rules.formMetadata
     };
   },
 
@@ -360,7 +362,7 @@ export default {
     getTotalServiceFee(val) {
       this.formData.serviceFee = this.currentTypeFee.serviceFee
       if (val) {
-        this.formData.serviceFee = this.currentTypeFee.burnableFee
+        this.formData.serviceFee += this.currentTypeFee.burnableFee
       }
       this.$emit('getServiceFee', this.formData.serviceFee)
     },
