@@ -159,8 +159,7 @@ export default {
       if (this.type == 'levels') {
         let tmp = true
         _.forEach(this.levels, item => {
-          if (item.value == 0 || item.maxValue == 0 ||
-            parseInt(item.value) > parseInt(item.maxValue)) {
+          if ((item.value == 0 || item.maxValue == 0 || parseInt(item.value) > parseInt(item.maxValue)) && (item.value && item.maxValue)) {
             tmp = false
             return
           }
@@ -170,8 +169,7 @@ export default {
       if (this.type == 'stats') {
         let tmpStat = true
         _.forEach(this.stats, item => {
-          if (item.value == 0 || item.maxValue == 0 ||
-            parseInt(item.value) > parseInt(item.maxValue)) {
+          if ((item.value == 0 || item.maxValue == 0 || parseInt(item.value) > parseInt(item.maxValue))  && (item.value && item.maxValue)) {
             tmpStat = false
             return
           }

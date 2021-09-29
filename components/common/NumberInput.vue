@@ -5,17 +5,17 @@
             <span role="button" class="el-input-number-custom__increase" @click="increaseValue"><i class="el-icon-caret-top"></i></span>
         </div>
         <div class="el-input">
-            <input 
-                ref="number" 
-                class="el-input__inner" 
-                type="text" :value="value" 
+            <input
+                ref="number"
+                class="el-input__inner"
+                type="text" :value="value"
                 :placeholder="placeholder"
-                :disabled="isDisable" 
+                :disabled="isDisable"
                 @keyup.enter="$emit('enter')">
             <small v-if="erorrMessage" class="text-danger">{{ erorrMessage }}</small>
         </div>
     </div>
-  
+
 </template>
 
 <script>

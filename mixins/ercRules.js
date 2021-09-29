@@ -37,6 +37,15 @@ export default {
                 validator: this.checkSupply,
                 message: 'Total amount of tokens to be generated. Minimum value is 1, and maximum 1,000,000,000,000,000.'
             }],
+            numberOfCopies: [{
+                required: true,
+                message: 'Total amount of tokens to be generated. Minimum value is 1, and maximum 1,000,000,000,000,000.',
+                trigger: 'blur'
+            },
+            {
+                validator: this.checkSupply,
+                message: 'Total amount of tokens to be generated. Minimum value is 1, and maximum 1,000,000,000,000,000.'
+            }],
             supplyCap: [{
                 validator: this.checkCapSupply,
                 trigger: 'blur'
@@ -52,7 +61,7 @@ export default {
         }
         callback();
     },
-  
+
     checkSupply(rule, value, callback) {
         const tmp = this.parseNumber(value)
         if (tmp > 1000000000000000 || tmp < 1) {
@@ -61,7 +70,7 @@ export default {
         }
         callback();
     },
-  
+
     checkDecimals(rule, value, callback) {
         if (value > 18 || value < 0) {
           callback("");
@@ -69,10 +78,10 @@ export default {
         }
         callback();
     },
-  
+
     checkCapSupply(rule, value, callback) {
         const tmp = this.parseNumber(value)
-  
+
         if (this.formValidate.mintableToken != '') {
           if (tmp > 1000000000000000 || tmp < 1 || !tmp) {
             callback("Total amount of tokens to be generated. Minimum value is 1 and maximum 1,000,000,000,000,000.");

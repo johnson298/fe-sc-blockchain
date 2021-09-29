@@ -7,8 +7,8 @@
     flex-direction: row !important;
 }
 
-.flex-collumn {
-    flex-direction: column I !important;
+.flex-column {
+    flex-direction: column !important;
 }
 
 .items-center {
@@ -45,7 +45,6 @@
 .mt-1 {
     margin-top: 1rem !important;
 }
-
 .mt-2 {
     margin-top: 2rem !important;
 }
@@ -159,4 +158,9 @@
 // Color
 .bg-transparent {
     background: transparent !important;
+}
+
+.mx-5px{
+  margin-left: 5px !important;;
+  margin-right: 5px !important;;
 }

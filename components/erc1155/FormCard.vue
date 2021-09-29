@@ -26,7 +26,7 @@
               content="Used to define the token’s name, which other contracts and applications can identify"
               ></label-tooltip>
           </template>
-          <file-upload 
+          <file-upload
             v-model="formData.bufferMedia"
             textAccept="Image of at least 400x400"
             :messError="$t('MSG_015')"
@@ -73,7 +73,7 @@
         </el-form-item>
 
         <el-form-item size="large" class="text-center mt-2">
-          <el-button v-if="!isValidNetwork(getCurrentNetwork, false)" 
+          <el-button v-if="!isValidNetwork(getCurrentNetwork, false)"
             type="primary" class="radius-10 fw-600"
             @click="scrollToNetwork">
             Wrong Network</el-button>
@@ -95,14 +95,14 @@
       <el-form
         ref="formMetadata"
         :validate-on-rule-change="false"
-        :rules="rulesMetadata"
+        :rules="rules"
         :model="formMetadata"
         label-width="120px"
         label-position="top">
 
         <p class="mb-1">Metadata</p>
         <el-form-item label="Image" :class="{'mb-0': errorImage}" required>
-          <file-upload 
+          <file-upload
             v-model="formMetadata.bufferMedia"
             textAccept="PNG, GIF, WEBP, MP4 or MP3. Max 100mb"
             :customErrorMess="errImageMess"
@@ -123,16 +123,15 @@
           <el-input v-valid-regex="/^[a-zA-Z0-9-_ ]*$/" v-model="formMetadata.name" placeholder="New Token" name="name"></el-input>
         </el-form-item>
 
-        <el-form-item label="Number of copies" prop="numberOfCopies" required>
+        <el-form-item label="Number of copies" prop="numberOfCopies">
           <template slot="label">
             <label-tooltip
               label="Number of copies"
               content="Used to define the NFT’s number of copies"
             ></label-tooltip>
           </template>
-          <el-input-number v-valid-regex="/^[0-9.]*$/"
-            v-model="formMetadata.numberOfCopies" placeholder="E. g.10"
-            controls-position="right" />
+          <number-input v-model="formMetadata.numberOfCopies" placeholder="18" :max-value="Math.pow(10,15)" />
+          <el-input style="display: none" :value="formMetadata.numberOfCopies"></el-input>
         </el-form-item>
 
         <el-form-item label="Description" prop="description">
@@ -167,8 +166,8 @@
                   class="attr-new__content-item"
                   :key="`props_${index}`"
                   v-for="(item, index) in formMetadata.attributes.properties">
-                  <p class="text-overflow">{{item.type}}</p>
-                  <span  class="text-overflow">{{ item.name }}</span>
+                  <p class="text-overflow" :title="item.type">{{item.type}}</p>
+                  <span  class="text-overflow" :title="item.name">{{ item.name }}</span>
                 </div>
               </div>
             </div>
@@ -181,8 +180,8 @@
               <div class="attr-new__content">
                 <div class="attr-new__content-item attr-new__content-item--with" v-for="(level, index) in formMetadata.attributes.levels" :key="`level_${index}`">
                   <div class="level">
-                    <span>{{ level.name }}</span>
-                    <span>{{ toExponential(level.value) }} of {{ toExponential(level.maxValue) }}</span>
+                    <span class="name" :title="level.name">{{ level.name }}</span>
+                    <span class="a-process"><span class="a-val" :title="toExponential(level.value)">{{ toExponential(level.value) }}</span> <span class="mx-5px">of</span> <span class="a-maxVal" :title="toExponential(level.maxValue)">{{ toExponential(level.maxValue) }}</span></span>
                   </div>
                   <div class="progress-bar">
                     <div class="bar" :style="{width: `${(level.value / level.maxValue)*100}%`}"></div>
@@ -199,8 +198,8 @@
               </div>
               <div class="attr-new__content">
                 <div class="attr-new__content-item" v-for="(stat, index) in formMetadata.attributes.stats" :key="`state_${index}`">
-                  <p>{{ stat.name }}</p>
-                  <span>{{ stat.value }} of {{ stat.maxValue }}</span>
+                  <p class="text-overflow" :title="stat.name">{{ stat.name }}</p>
+                  <span class="a-process a-process-stat"><span class="a-val" :title="stat.value">{{ stat.value }}</span> <span class="mx-5px">of</span> <span class="a-maxVal" :title="stat.maxValue">{{ stat.maxValue }}</span></span>
                 </div>
               </div>
 
@@ -277,6 +276,7 @@ import AddModal from "../common/AddModal";
 import { TIME_RESET_TOKEN } from '@/const/common';
 
 import rules from "./rules";
+import ErcRules from '@/mixins/ercRules'
 
 const STEP_FORM = {
   token: 1,
@@ -284,7 +284,7 @@ const STEP_FORM = {
 }
 export default {
   components: { ConfirmModal, AddModal },
-
+  mixins: [ErcRules],
   props: {
     currentTypeFee: Object
   },
@@ -325,8 +325,6 @@ export default {
           stats: []
         }
       },
-      rules: rules.formToken,
-      rulesMetadata: rules.formMetadata
     };
   },
 
@@ -417,7 +415,7 @@ export default {
       if (!this.formData.type) {
         this.formData.serviceFee = this.currentTypeFee.serviceFee
       }
-      
+
       if(!this.formData.bufferMedia){
         this.errLogoMess = this.$t('MSG_015');
       }
@@ -497,79 +495,5 @@ export default {
   color: #4AA7FA;
   cursor: pointer;
   margin-bottom: 15px;
-}
-.advanced-attr{
-  .attr-new{
-    margin: 20px 0 20px 20px;
-    &__header{
-      margin-bottom: 15px;
-      position: relative;
-      p{
-        margin-top: 10px;
-        padding-left: 20px;
-      }
-      .action{
-        position: absolute;
-        background: #24416C;
-        width: 40px;
-        height: 40px;
-        line-height: 47px;
-        text-align: center;
-        border-radius: 10px;
-        top: 0;
-        right: 0;
-        outline: none;
-        border: none;
-        cursor: pointer;
-      }
-      h5{
-        font-weight: normal;
-        font-size: 14px;
-      }
-    }
-    &__content {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      &-item{
-        cursor: pointer;
-        width: 95px;
-        height: 70px;
-        text-align: center;
-        margin-right: 20px;
-        border-radius: 10px;
-        background: #fff;
-        color: #858585;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-content: center;
-        font-size: 14px;
-        margin-bottom: 15px;
-      }
-      &-item--with{
-        width: 300px;
-        padding: 15px 25px;
-        .level{
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 10px;
-          overflow: hidden;
-        }
-        .progress-bar{
-          width: 100%;
-          border: 1px solid #858585;
-          border-radius: 10px;
-          height: 10px;
-          overflow: hidden;
-          .bar{
-            background-color: #858585;
-            height: 100%;
-          }
-        }
-      }
-    }
-  }
 }
 </style>
